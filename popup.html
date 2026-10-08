@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcrever Fala</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-dot"></span>
+        <div>
+          <h1>Transcrever Fala</h1>
+          <p>funciona em background</p>
+        </div>
+      </div>
+      <label class="lang">
+        <span>🌐</span>
+        <select id="langSelect">
+          <option value="pt-BR" selected>PT-BR</option>
+          <option value="en-US">EN-US</option>
+          <option value="es-ES">ES-ES</option>
+          <option value="fr-FR">FR-FR</option>
+        </select>
+      </label>
+    </header>
+
+    <main class="card mic-card">
+      <button id="toggleBtn" class="mic-btn" aria-label="Iniciar gravação">
+        <span class="btn-icon">🎤</span>
+        <span class="ring"></span>
+      </button>
+      <div class="mic-label btn-text">Começar a ouvir</div>
+      <button id="stopBtn" class="btn-stop" hidden>⏹ Parar de ouvir</button>
+      <div id="status" class="status"><span class="dot"></span><span class="status-text">Pronto para transcrever</span></div>
+
+      <div id="micHelp" class="mic-help" hidden>
+        <strong id="micHelpTitle">Liberando microfone…</strong>
+        <div id="micHelpText">Tentando liberar automaticamente, aguarde…</div>
+        <button id="autoFixBtn" class="btn-fix" hidden>Abrir aba para liberar</button>
+        <details class="mic-manual">
+          <summary>Não liberou? Ver passo manual</summary>
+          <ol>
+            <li>Abra <b>chrome://settings/content/microphone</b> e tire esta extensão do <b>Bloquear</b>.</li>
+            <li>Em <b>chrome://extensions</b> recarregue a extensão e tente de novo.</li>
+            <li>No Mac: Ajustes → Privacidade → Microfone → permita o <b>Google Chrome</b>.</li>
+          </ol>
+        </details>
+        <div class="ext-id">ID: <code id="extId">…</code></div>
+      </div>
+    </main>
+
+    <section class="card text-card">
+      <div class="text-head">
+        <span>Transcrição</span>
+        <span id="charCount" class="count">0 caracteres</span>
+      </div>
+      <textarea id="transcript" placeholder="Clique no microfone e comece a falar…" readonly aria-label="Texto transcrito"></textarea>
+      <div class="actions">
+        <button id="copyBtn" class="btn ghost" disabled>⧉ Copiar</button>
+        <button id="fixBtn" class="btn ghost" disabled>✨ Corrigir</button>
+        <button id="clearBtn" class="btn ghost danger">🗑 Limpar</button>
+      </div>
+      <div class="fix-note">Correção usa LanguageTool (vírgulas, pontos, ortografia). Requer internet.</div>
+    </section>
+
+    <footer class="hint">Espaço = gravar/parar · Ctrl+Enter = copiar</footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Transcrever Fala",
+  "version": "2.0.0",
+  "description": "Transcreve fala em background, funciona enquanto navega. Clique para gravar, copie e cole em qualquer site.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Transcrever Fala"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "offscreen": {
+    "reasons": ["USER_MEDIA", "AUDIO_PLAYBACK"],
+    "justification": "SpeechRecognition contínuo em background enquanto navega"
+  },
+  "permissions": [
+    "offscreen",
+    "clipboardWrite",
+    "storage",
+    "contentSettings"
+  ],
+  "host_permissions": ["https://api.languagetool.org/*"],
+  "minimum_chrome_version": "116"
+}
