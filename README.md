@@ -55,7 +55,8 @@ Extensão Chrome (Manifest V3) para transcrição de fala em tempo real. Funcion
 ├── offscreen.js           # SpeechRecognition roda aqui (background)
 ├── popup.html             # UI do popup
 ├── popup.js               # UI logic (comunica com background)
-└── popup.css              # Estilos
+├── popup.css              # Estilos
+├── mic.html / mic.js      # Aba de onboarding p/ liberar o microfone 1x
 ```
 
 **Por que Offscreen Document?**
@@ -69,8 +70,9 @@ Extensão Chrome (Manifest V3) para transcrição de fala em tempo real. Funcion
 |-----------|-----|
 | `offscreen` | Documento offscreen para SpeechRecognition |
 | `clipboardWrite` | Copiar transcrição |
-| `storage` | (futuro) salvar histórico |
-| `host_permissions: <all_urls>` | Inserir texto em qualquer site (futuro) |
+| `storage` | Flag de microfone liberado + (futuro) histórico |
+| `contentSettings` | Tentar reverter bloqueio de microfone automaticamente |
+| `host_permissions: https://api.languagetool.org/*` | Correção de gramática (botão ✨ Corrigir) |
 
 ## 🖥️ Compatibilidade
 
@@ -89,7 +91,11 @@ Extensão Chrome (Manifest V3) para transcrição de fala em tempo real. Funcion
 
 | Problema | Solução |
 |----------|---------|
-| "Permissão de microfone negada" | Clique no cadeado 🔒 na barra do popup → Microfone → Permitir |
+| "Permissão de microfone negada" | O popup abre sozinho a aba `mic.html` → clique em **Permitir microfone** → **Permitir** no Chrome |
+| "Ainda bloqueado" após Permitir | `chrome://settings/content/microphone` → tire a extensão do **Bloquear** |
+| Windows: mic não aparece | Configurações → Privacidade → Microfone → permita o **Google Chrome**; Sistema → Som → confira o dispositivo de entrada |
+| Mac: mic não aparece | Ajustes do Sistema → Privacidade e Segurança → Microfone → ative o **Google Chrome** |
+| "Erro de conexão / Reconectando" | O popup reconecta sozinho em ~1s; clique de novo. Se persistir: `chrome://extensions/` → 🔄 Recarregar |
 | Não transcreve | Verifique se microfone funciona nas configurações do SO |
 | Extensão não carrega | `chrome://extensions/` → 🔄 Recarregar |
 | Popup fecha ao gravar | Normal — a gravação continua em background |
